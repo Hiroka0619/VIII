@@ -1,0 +1,26 @@
+/** サイトデザイン **/
+body{
+	position: absolute center;
+	height: 100%;
+}
+/** レイアウト **/
+div#header{
+	width: 900px;
+	height: 50px;
+	margin: 0 auto;
+}
+
+div#footer{
+	width: 900px;
+	height: 50px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+div#contents{
+	margin: 0 auto;
+	position: absolute center;
+	width: 900px;
+	height: 100%;
+	border: solid 1px;
+}

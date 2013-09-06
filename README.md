@@ -1,4 +1,18 @@
-This is your new Play 2.1 application
+試作中アプリ
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+開発環境
+-------------------------------------
+* Java
+ - java version "1.7.0_17"
+* Play
+ - 2.1.3
+* MySQL
+ - 5.x
+
+進捗
+-------------------------------------
+* なんとなくDBは定義完了、型は作業を進めながら調整する。
+
+NEXT ->
+* トップ画面でも作る。

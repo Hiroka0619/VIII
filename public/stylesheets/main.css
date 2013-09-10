@@ -12,7 +12,7 @@ div#header{
 
 div#footer{
 	width: 900px;
-	height: 50px;
+	height: 100px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -23,4 +23,12 @@ div#contents{
 	width: 900px;
 	height: 100%;
 	border: solid 1px;
+}
+
+div#calendar{
+	height: 400px;
+}
+
+div#news{
+	height: 200px
 }

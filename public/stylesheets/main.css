@@ -34,6 +34,26 @@ div#news{
 	height: 200px
 }
 
+div#menu{
+	width: 900px;
+	height: 30px;
+	margin: 0 auto;
+}
+
+table#menu{
+	width: 100%;
+	height: 100%;
+}
+td.tab{
+	width: 80px;
+	text-align: center;
+	background-color: #666666;
+}
+td.tab_selected{
+  width: 80px;
+  text-align: center;
+  background-color: #999999;
+}
 /** 検索エリアレイアウト **/
 select.kamoku_id{
 	position: absolute left;

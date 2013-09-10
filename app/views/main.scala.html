@@ -1,4 +1,4 @@
-@(searchForm: Form[SearchOption])
+@(searchForm: Form[SearchOption])(contents: => Html)
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,9 +10,7 @@
     @header()
     @menu()
     <div id="contents">
-      @news()
-      @searchArea(searchForm)
-      @calendar()
+      @contents
     </div>
     @footer()
     </body>

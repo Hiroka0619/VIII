@@ -3,6 +3,10 @@ body{
 	position: absolute center;
 	height: 100%;
 }
+a{
+	color: #000000;
+	text-decoration: none;
+}
 /** レイアウト **/
 div#header{
 	width: 900px;
@@ -50,9 +54,9 @@ td.tab{
 	background-color: #666666;
 }
 td.tab_selected{
-  width: 80px;
-  text-align: center;
-  background-color: #999999;
+	width: 80px;
+	text-align: center;
+	background-color: #999999;
 }
 /** 検索エリアレイアウト **/
 select.kamoku_id{

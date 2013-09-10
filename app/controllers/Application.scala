@@ -10,8 +10,11 @@ object Application extends Controller {
   
   def main = Action { implicit req =>
     val search_form = SearchOption.SearchOptionForm
-    Ok(views.html.main(search_form))
+    Ok(views.html.top(search_form))
   }
   
-  def search = TODO
+  def search = Action { implicit req =>
+    val search_form = SearchOption.SearchOptionForm
+    Ok(views.html.search(search_form))
+  }
 }

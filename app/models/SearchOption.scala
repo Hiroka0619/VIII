@@ -8,8 +8,9 @@ case class SearchOption(
     kyokasyo_id: Option[Int],
     page_start: Option[Int],
     page_end: Option[Int],
-    keyword: Option[String],
-    tag: Option[String])
+    tag: Option[String],
+    freeword: Option[String]
+    )
 
 object SearchOption {
   val SearchOptionForm = Form(
@@ -18,8 +19,8 @@ object SearchOption {
       "kyokasyo_id" -> optional(number),
       "page_start" -> optional(number),
       "page_end" -> optional(number),
-      "keyword" -> optional(text),
-      "tag" -> optional(text)
+      "tag" -> optional(text),
+      "freeword" -> optional(text)
     )(SearchOption.apply)(SearchOption.unapply)
   )
 }

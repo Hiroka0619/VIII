@@ -2,26 +2,33 @@
 @import helper._
 <div id="search">
 @helper.form(action = routes.Application.search) {
+@* 科目IDはどっかで定義したのを拾ってきたい *@
   <label for="kamoku_id">科目</label>
   <select name="kamoku_id">
+    <option value="0">科目を指定</option>
     <option value="1">英語</option>
     <option value="2">国語</option>
     <option value="3">数学</option>
     <option value="4">理科</option>
     <option value="5">社会</option>
-  </select><br />
+  </select>
+@* 基本的にはDBに登録済みの教科書全部、科目を指定されたら絞りこみがかかるかんじ *@
   <label for="kyokasyo_id">教科書</label>
   <select name="kyokasyo_id">
+    <option value="0">教科書を指定</option>
     <option value="1">あ</option>
     <option value="2">い</option>
     <option value="3">う</option>
     <option value="4">え</option>
     <option value="5">お</option>
   </select><br />
-  <label for="page_start">開始ページ</label><input type="text" name="page_start" size="20"><br />
-  <label for="page_end">終了ページ</label><input type="text" name="page_end" size="20"><br />
-  <label for="keyword">キーワード</label><input type="text" name="keyword" size="60"><br />
-  <label for="tag">タグ</label><input type="text" name="tag" size="60"><br />
+@* 教科書指定がある場合のみページの入力が可能 *@
+  <label for="page_start">開始ページ</label><input type="text" name="page_start" size="10">
+  <label for="page_end">終了ページ</label><input type="text" name="page_end" size="10"><br />
+@* フリーワード検索 *@
+  <label for="keyword">フリーワード</label><input type="text" name="freeword" size="40"><br />
+@* 登録済みタグでの検索、リコメンドしたい気がする *@
+  <label for="tag">タグ</label><input type="text" name="tag" size="40"><br />
   <input type="submit" value="検索" />
 }
 </div>

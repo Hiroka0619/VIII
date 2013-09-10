@@ -19,6 +19,7 @@ div#footer{
 
 div#contents{
 	margin: 0 auto;
+	padding: 10px;
 	position: absolute center;
 	width: 900px;
 	height: 100%;
@@ -32,3 +33,24 @@ div#calendar{
 div#news{
 	height: 200px
 }
+
+/** 検索エリアレイアウト **/
+select.kamoku_id{
+	position: absolute left;
+}
+select.kyokasyo_id{
+	position: absolute left;
+}
+input.page_start{
+	
+}
+input.page_end{
+	
+}
+
+/** ニュースエリアレイアウト **/
+th.date{ width: 20px; }
+th.mess{ width: 60px; }
+
+/** 小物 **/
+hr{ width: 98%; }

@@ -5,7 +5,13 @@ import play.api.data.Forms._
 
 import models.DBTables._
 
-object DBTableFroms {
+object DBTableForms {
+  val KamokuForm = Form(
+    mapping(
+      "kamoku_id" -> number,
+      "kamoku_mei" -> text
+      )(Kamoku.apply)(Kamoku.unapply)
+    )
   val KyokasyoFrom = Form(
     mapping(
       "kyokasyo_id" -> number,

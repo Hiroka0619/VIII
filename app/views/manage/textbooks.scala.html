@@ -1,0 +1,19 @@
+@()
+@main(){
+  <h2>教科書管理</h2>
+  <hr>
+  @* 教科書IDは見えなくてもいい？編集不可にする予定だし *@
+  @* オーダーは教科書名、出版社、ID順（＝登録順。初期表示＆リセット） *@
+  <div><h3>新規登録</h3></div>
+  <table>
+    <tr><th>教科書名</th><th>出版社</th><th></th></tr>
+    <tr><td>English</td><td>AA出版</td><td>　詳細　編集　削除　</td></tr>
+    <tr><td>国語２</td><td>B出版</td><td>　詳細　編集　削除　</td></tr>
+    <tr><td>数学A</td><td>AA出版</td><td>　詳細　編集　削除　</td></tr>
+    <tr><td>理科＜上＞</td><td>AA出版</td><td>　詳細　編集　削除　</td></tr>
+    <tr><td>社会＜上＞</td><td>AB出版</td><td>　詳細　編集　削除　</td></tr>
+  </table>
+  <div><h3>新規登録</h3></div>
+  <a href="@routes.ManageApplication.top">戻る</a>
+
+}

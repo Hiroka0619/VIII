@@ -15,8 +15,29 @@ object DBTables {
   case class Contents(kyokasyo_id: Int, page: Int, title: String,
     content: String, point: String, tags: String)
 
+  object Kamoku{
+    val parse = {
+      get[Int]("kamoku_id")~
+      get[String]("kamoku_mei") map {
+        case kamoku_id~kamoku_mei => Kamoku(kamoku_id, kamoku_mei)
+      }
+    }
+    
+    def read(query: String): List[Kamoku] = {
+      DB.withConnection { implicit conn =>
+        SQL("SELECT * FROM kamoku WHERE %s".format(query)).as(parse*).toList
+      }
+    }
+    
+    def insert(kamoku_mei: String): Int = {
+      DB.withConnection { implicit conn =>
+        SQL("INSERT INTO kamoku (kamoku_mei) VALUES ({kamoku_mei})")
+          .on("kamoku_mei" -> kamoku_mei).executeUpdate
+      }
+    }
+  }
   object Kyokasyo {
-    val parseKyokasyo = {
+    val parse = {
       get[Int]("kyokasyo_id")~
       get[String]("kyokasyo_mei")~
       get[Int]("han_no")~
@@ -25,21 +46,13 @@ object DBTables {
           Kyokasyo(kyokasyo_id, kyokasyo_mei, han_no, kamoku_id)
       }
     }
-    def getKyokasyo(target: String, query: String) :List[Kyokasyo] = {
+    def read(target: String, query: String): List[Kyokasyo] = {
       var kyokasyo_list: List[Kyokasyo] = List.empty
       DB.withConnection { implicit conn =>
         kyokasyo_list = SQL("SELECT {target} FROM kyokasyo WHERE {qyery}")
           .on("target" -> target, "query" -> query)
-          .as(parseKyokasyo*).toList//ORDER BY hoge
+          .as(parse*).toList//ORDER BY hoge
         kyokasyo_list
-      }
-    }
-  }
-  object Kamoku{
-    val parseKamoku = {
-      get[Int]("kamoku_id")~
-      get[String]("kamoku_mei") map {
-        case kamoku_id~kamoku_mei => Kamoku(kamoku_id, kamoku_mei)
       }
     }
   }

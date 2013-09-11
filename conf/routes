@@ -7,7 +7,8 @@ GET     /                           controllers.Application.main
 GET     /result                     controllers.Application.search
 GET     /manage/top                 controllers.ManageApplication.top
 GET     /manage/subjects            controllers.ManageApplication.subjects
-GET     /manage/textbooks            controllers.ManageApplication.textbooks
+POST    /manage/sbjcreate           controllers.ManageApplication.sbjCreate
+GET     /manage/textbooks           controllers.ManageApplication.textbooks
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

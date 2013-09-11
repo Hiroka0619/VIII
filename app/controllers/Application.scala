@@ -17,4 +17,5 @@ object Application extends Controller {
     val search_form = SearchOption.SearchOptionForm
     Ok(views.html.search(search_form))
   }
+  
 }

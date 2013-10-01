@@ -1,10 +1,19 @@
 package models
 
 import play.api.Play.current
-//import play.api.db._
-import play.api.db.DB
-import anorm._
-import anorm.SqlParser._
+import scalikejdbc._
+import com.typesafe.config._
+
+trait DBConn {
+  val appConf = ConfigFactory.load()
+  val dbUrl = appConf.getString("db.default.url")
+  val driverName = appConf.getString("db.default.driver")
+  val dbUser = appConf.getString("db.default.user")
+  val dbPassword = appConf.getString("db.default.password")
+  
+  Class.forName("com.mysql.jdbc.Driver")
+  ConnectionPool.singleton(dbUrl, dbUser, dbPassword)
+}
 
 object DBTables {
   case class Kyokasyo(kyokasyo_id: Int, kyokasyo_mei: String,
@@ -14,46 +23,30 @@ object DBTables {
   case class Tangen(kyokasyo_id: Int, tangen_mei: String)
   case class Contents(kyokasyo_id: Int, page: Int, title: String,
     content: String, point: String, tags: String)
-
-  object Kamoku{
-    val parse = {
-      get[Int]("kamoku_id")~
-      get[String]("kamoku_mei") map {
-        case kamoku_id~kamoku_mei => Kamoku(kamoku_id, kamoku_mei)
-      }
+  
+  object Kamoku extends DBConn {
+    val * = (rs: WrappedResultSet) => Kamoku(
+      rs.int("kamoku_id"),
+      rs.string("kamoku_mei"))
+    val read = (query: String) => DB readOnly { implicit session => 
+      SQL("SELECT * FROM kamoku WHERE kamoku_id = ?").bind(query).map(*).list.apply()
     }
-    
-    def read(query: String): List[Kamoku] = {
-      DB.withConnection { implicit conn =>
-        SQL("SELECT * FROM kamoku WHERE %s".format(query)).as(parse*).toList
-      }
+    val readAll = () => DB readOnly { implicit session => 
+      SQL("SELECT * FROM kamoku").map(*).list.apply()
     }
-    
-    def insert(kamoku_mei: String): Int = {
-      DB.withConnection { implicit conn =>
-        SQL("INSERT INTO kamoku (kamoku_mei) VALUES ({kamoku_mei})")
-          .on("kamoku_mei" -> kamoku_mei).executeUpdate
-      }
+    val insert = (kamoku_mei: String) => DB autoCommit { implicit session =>
+      SQL("INSERT INTO kamoku (kamoku_mei) VALUES (?)").bind(kamoku_mei).update.apply()
     }
   }
-  object Kyokasyo {
-    val parse = {
-      get[Int]("kyokasyo_id")~
-      get[String]("kyokasyo_mei")~
-      get[Int]("han_no")~
-      get[Int]("kamoku_id") map {
-        case kyokasyo_id~kyokasyo_mei~han_no~kamoku_id =>
-          Kyokasyo(kyokasyo_id, kyokasyo_mei, han_no, kamoku_id)
-      }
-    }
-    def read(target: String, query: String): List[Kyokasyo] = {
-      var kyokasyo_list: List[Kyokasyo] = List.empty
-      DB.withConnection { implicit conn =>
-        kyokasyo_list = SQL("SELECT {target} FROM kyokasyo WHERE {qyery}")
-          .on("target" -> target, "query" -> query)
-          .as(parse*).toList//ORDER BY hoge
-        kyokasyo_list
-      }
+  
+  object Kyokasyo extends DBConn {
+    val * = (rs: WrappedResultSet) => Kyokasyo(
+      rs.int("kyokasyo_id"),
+      rs.string("kyokasyo_mei"),
+      rs.int("han_no"),
+      rs.int("kamoku_id"))
+    val read = (target: String, query: String) => DB readOnly { implicit session => 
+      SQL("SELECT ? FROM kyokasyo WHERE ?").bind(target, query).map(*).list.apply()
     }
   }
 }
